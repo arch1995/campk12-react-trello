@@ -142,11 +142,10 @@ class Lane extends Component {
       tagStyle,
       cardStyle,
       components,
-      allowCardDrag,
+      blackListLanes,
       t
     } = this.props
     const {addCardMode, collapsed} = this.state
-
     const showableCards = collapsed ? [] : cards
 
     const cardList = this.sortCards(showableCards, laneSortFunction).map((card, idx) => {
@@ -165,7 +164,8 @@ class Lane extends Component {
           {...card}
         />
       )
-      return cardDraggable && (!card.hasOwnProperty('draggable') || card.draggable) && allowCardDrag ? (
+      const disableCardDrag = blackListLanes && blackListLanes.findIndex(item => item === id) > -1
+      return cardDraggable && (!card.hasOwnProperty('draggable') || card.draggable) && !disableCardDrag ? (
         <Draggable key={card.id}>{cardToRender}</Draggable>
       ) : (
         <span key={card.id}>{cardToRender}</span>
@@ -301,7 +301,7 @@ Lane.propTypes = {
   cardDragClass: PropTypes.string,
   canAddLanes: PropTypes.bool,
   t: PropTypes.func.isRequired,
-  allowCardDrag: PropTypes.bool.isRequired
+  blackListLanes: PropTypes.arrayOf(PropTypes.string),
 }
 
 Lane.defaultProps = {
@@ -311,8 +311,7 @@ Lane.defaultProps = {
   label: undefined,
   editable: false,
   onLaneUpdate: () => {},
-  onCardAdd: () => {},
-  allowCardDrag: true
+  onCardAdd: () => {}
 }
 
 const mapDispatchToProps = dispatch => ({

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import pick from 'lodash/pick'
 import isEqual from 'lodash/isEqual'
 import Lane from './Lane'
-import { PopoverWrapper } from 'react-popopo'
+import {PopoverWrapper} from 'react-popopo'
 
 import * as boardActions from 'rt/actions/BoardActions'
 import * as laneActions from 'rt/actions/LaneActions'
@@ -153,9 +153,9 @@ class BoardContainer extends Component {
       'handleDragEnd',
       'cardDragClass',
       'editLaneTitle',
-      't'
+      't',
+      'blackListLanes'
     ])
-
     return (
       <components.BoardWrapper style={style} {...otherProps} draggable={false}>
         <PopoverWrapper>
@@ -193,8 +193,10 @@ class BoardContainer extends Component {
         </PopoverWrapper>
         {canAddLanes && (
           <Container orientation="horizontal">
-            {editable && !addLaneMode ? <components.NewLaneSection t={t} onClick={this.showEditableLane} /> : (
-              addLaneMode && <components.NewLaneForm onCancel={this.hideEditableLane} onAdd={this.addNewLane} t={t}/>
+            {editable && !addLaneMode ? (
+              <components.NewLaneSection t={t} onClick={this.showEditableLane} />
+            ) : (
+              addLaneMode && <components.NewLaneForm onCancel={this.hideEditableLane} onAdd={this.addNewLane} t={t}  />
             )}
           </Container>
         )}
@@ -237,10 +239,11 @@ BoardContainer.propTypes = {
   laneDragClass: PropTypes.string,
   onCardMoveAcrossLanes: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  blackListLanes: PropTypes.arrayOf(PropTypes.string)
 }
 
 BoardContainer.defaultProps = {
-  t: v=>v,
+  t: v => v,
   onDataChange: () => {},
   handleDragStart: () => {},
   handleDragEnd: () => {},
@@ -258,7 +261,8 @@ BoardContainer.defaultProps = {
   laneDraggable: true,
   cardDraggable: true,
   cardDragClass: 'react_trello_dragClass',
-  laneDragClass: 'react_trello_dragLaneClass'
+  laneDragClass: 'react_trello_dragLaneClass',
+  blackListLanes: []
 }
 
 const mapStateToProps = state => {
