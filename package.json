@@ -1,6 +1,6 @@
 {
   "name": "campk12-board",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pluggable components to add a trello like kanban board to your application",
   "main": "dist/index.js",
   "jsnext:main": "components/index.js",
@@ -23,8 +23,7 @@
     "commit": "git cz",
     "deploy-storybook": "storybook-to-ghpages",
     "format": "pretty-quick \"src/**/*.js\"",
-    "size": "size-limit",
-    "postinstall": "npm run build"
+    "size": "size-limit"
   },
   "repository": {
     "type": "git",
