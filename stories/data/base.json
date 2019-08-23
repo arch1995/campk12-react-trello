@@ -5,6 +5,7 @@
       "title": "Planned Tasks",
       "label": "20/70",
       "style": {"width": 280},
+      "allowCardDrag": false,
       "cards": [
         {
           "id": "Milk",
@@ -37,6 +38,7 @@
       "title": "Work In Progress",
       "label": "10/20",
       "style": {"width": 280},
+      "allowCardDrag": false,
       "cards": [
         {
           "id": "Wip1",

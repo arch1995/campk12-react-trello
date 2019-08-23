@@ -142,6 +142,7 @@ class Lane extends Component {
       tagStyle,
       cardStyle,
       components,
+      allowCardDrag,
       t
     } = this.props
     const {addCardMode, collapsed} = this.state
@@ -164,7 +165,7 @@ class Lane extends Component {
           {...card}
         />
       )
-      return cardDraggable && (!card.hasOwnProperty('draggable') || card.draggable) ? (
+      return cardDraggable && (!card.hasOwnProperty('draggable') || card.draggable) && allowCardDrag ? (
         <Draggable key={card.id}>{cardToRender}</Draggable>
       ) : (
         <span key={card.id}>{cardToRender}</span>
@@ -249,6 +250,7 @@ class Lane extends Component {
       onCardMoveAcrossLanes,
       ...otherProps
     } = this.props
+    console.log("props", this.props);
     const allClassNames = classNames('react-trello-lane', this.props.className || '')
     const showFooter = collapsibleLanes && cards.length > 0
     return (
@@ -298,7 +300,8 @@ Lane.propTypes = {
   cardDraggable: PropTypes.bool,
   cardDragClass: PropTypes.string,
   canAddLanes: PropTypes.bool,
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
+  allowCardDrag: PropTypes.bool.isRequired
 }
 
 Lane.defaultProps = {
@@ -308,7 +311,8 @@ Lane.defaultProps = {
   label: undefined,
   editable: false,
   onLaneUpdate: () => {},
-  onCardAdd: () => {}
+  onCardAdd: () => {},
+  allowCardDrag: true
 }
 
 const mapDispatchToProps = dispatch => ({
