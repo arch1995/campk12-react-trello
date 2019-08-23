@@ -1,5 +1,5 @@
 {
-  "name": "campk12-react-trello",
+  "name": "campk12-board",
   "version": "1.0.0",
   "description": "Pluggable components to add a trello like kanban board to your application",
   "main": "dist/index.js",
